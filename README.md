@@ -42,7 +42,6 @@ Service detection performed. Please report any incorrect results at https://nmap
 Security measures against it
 
 ## Webserver
-Has reverse proxy
 We can see that a reverse proxy has been set up however it's just so that directory enum can be redirected to a rickroll because the boxes aren't directly connected to the internet (so evil!)
 
 ![nginx-reverse-proxy.png](attachments/nginx-reverse-proxy.png)
@@ -126,7 +125,7 @@ We can access the repository by navigating to the directory and launching sqlite
 [git@git-and-crumpets tmp]$ sqlite3 /var/lib/gitea/data/gitea.db
 ```
 
-Enumerating Users
+### Enumerating Users
 ```
 1|hydra|hydra||hydragyrum@example.com|0|enabled|9b020d3e158bc31b5fe64d668d94cab38cadc6721a5fdf7a4b1fb7bf97021c5e68f56bd9bd44d5ce9547e5e234086342c4e4|pbkdf2|0|0|0||0|||XGySX7uBlc|3C4NzJWN9e|en-US||1618386984|1621615239|1621614217|0|-1|1|1|0|0|0|0|0|d91f03c868d38ecf84ab3cc54f876106|hydragyrum@example.com|1|0|0|0|1|0|0|0|0|unified|arc-green|0
 2|root|root|groot|root@example.com|0|enabled|2181d2b5fbf1859db426bcb94d97851d9a0e87a5eb47c5edc7f92bffc45b679e554c8367084f379e59936b68c0d770823ec9|pbkdf2|0|0|0||0|||2VK8fSxvIZ|5e5xPrzvBr|en-US||1618391049|1621716065|1621716065|1|-1|1|0|1|0|0|0|0|b2b218891f86ea980812a5b934ecec1a|root@examle.com|1|0|0|0|1|0|0|0|0|unified|gitea|0
@@ -135,7 +134,7 @@ Enumerating Users
 5|tech|tech||test@test.com|0|enabled|284fa22f56ab47b77541d631b8ed858c80884364ed6202b5f960b54f43cf4a396f41dfc8fd075df648ea242d25a0336ffed1|pbkdf2|0|0|0||0|||3cK2mlF0l6|CBZhwzom1d|en-US||1625324085|1625324085|1625324085|0|-1|1|0|0|0|0|0|0|b642b4217b34b1e8d3bd915fc65c4452|test@test.com|0|0|0|0|0|0|0|0|0||gitea|0
 ```
 
-Enumerating Repositories
+### Enumerating Repositories
 ```
 sqlite> SELECT * FROM repository;
 2|2|root|backup|backup|||0||master|1|0|0|0|0|0|0|0|0|0|0|1|0|0|0|0|0|0|0|0|25612|1|0|null|0||1618493101|1618494415
@@ -170,7 +169,7 @@ Is that an ssh key I see? ;)
 The key we found is protected by a passphrase. Now you can try to crack it using john, but I can save you the time and tell you that in a final attempt to troll us, Hydragyrum actually gave us the passphrase! It's the title of the key `Sup3rS3cur3`. Wow, I personally while waiting for john to do its thing randomly tried it and it worked! 
 
 Now we can log in as root! 
-*On a side note, I was unable to login directly from my host machine and instead log in from my current ssh session, therefore, using root@localhost. Kept getting invalid id_rsa key error*
+*On a side note, I was unable to login directly from my host machine and instead had to log in from my current ssh session, therefore, using root@localhost. Kept getting invalid id_rsa key error*
 
 ![root.png](attachments/root.png)
 
