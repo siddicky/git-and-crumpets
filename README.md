@@ -114,7 +114,7 @@ We can transfer linpeas from our host machine using:
 scp  -i id_rsa /opt/scripts/privilege-escalation-awesome-scripts-suite/linPEAS/linpeas.sh git@$IP:/dev/shm
 ```
 
-Now let's run in and see if anything pops up. Low and behold, something indeed does. We find the sqlite database that's running on gitea, also there seems to be a backup repository for the root user too. Most likely it's the case that they might be hidden and only accessible through admin access on gitea. However, I don't like working on hunches so let's access the SQLite database and verify our hunch ;)
+Now let's run in and see if anything pops up. Low and behold (yeah apparently I say this now, great additon to my personality kekw), something indeed does. We find the sqlite database that's running on gitea, also there seems to be a backup repository for the root user too. Most likely it's the case that they might be hidden and only accessible through admin access on gitea. However, I don't like working on hunches so let's access the SQLite database and verify our hunch ;)
 Transfer over linpeas, interesting output
 
 ![linpeas-out.png](attachments/linpeas-out.png)
