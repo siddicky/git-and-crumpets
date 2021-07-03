@@ -1,4 +1,4 @@
-# Git and Grumpets - TryHackMe
+# Git and Crumpets - TryHackMe
 Link to the room: https://tryhackme.com/room/gitandcrumpets
 
 -----------------
