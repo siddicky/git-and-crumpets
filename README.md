@@ -144,12 +144,12 @@ sqlite> SELECT * FROM repository;
 ```
 
 As expected, we can see the user root does exist and has a backup repository. Now in order for us to be able to access it on gitea through our browser, we need to do two things:
-- Gives us admin priveleges for gitea
-- Makes the repository visible (just playing it safe)
+- Get admin priveleges for gitea
+- Make the repository visible (just playing it safe)
 
 This can be done by running the following commands:
 ```sqlite3
-sqlite3 /var/lib/gitea/data/gitea.db update user set is_admin=1 where id=3;
+UPDATE user SET is_admin=1 where id=3;
 UPDATE repository SET is_private=0 WHERE name='backup';
 ```
 
@@ -167,7 +167,7 @@ Is that an ssh key I see? ;)
 ![ssh-key-for-root.png](attachments/ssh-key-for-root.png)
 
 # Priv Esc
-The key we found is protected by a passphrase. Now you can try to crack it using john, but I can save you the time and tell you that in a final attempt to troll us, Hydragyrum actually gave us the passphrase! It's the title of the key `Sup3rS3cur3`. Wow, I personally while waiting for john to do its thing randomly tried it and it worked! 
+The key we found is protected by a passphrase. Now you can try to crack it using john, but I can save you the time and tell you that in a final attempt to troll us, Hydragyrum actually gave us the passphrase! It's the title of the key `Sup3rS3cur3`. Wow, I whilst waiting for john to do its thing randomly tried it and it worked! #neverstayidle 
 
 Now we can log in as root! 
 *On a side note, I was unable to login directly from my host machine and instead had to log in from my current ssh session, therefore, using root@localhost. Kept getting invalid id_rsa key error*
