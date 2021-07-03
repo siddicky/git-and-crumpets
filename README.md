@@ -70,7 +70,7 @@ It seems that registering a new user works so we can try making a new account. A
 
 ![scone-password.png](attachments/scone-password.png)
 
-This hints at the fact that something might be hidden in the profile picture. My first instinct is to fire up steghide and see if there are any embedded files. No luck there, let's try strings to check if there's some text embedded in it. Low and behold we there is some cheeky text waiting for us!
+This hints at the fact that something might be hidden in the profile picture. My first instinct is to fire up steghide and see if there are any embedded files. No luck there, let's try strings to check if there's some text embedded in it. Low and behold there is some cheeky text waiting for us!
 
 *Strings inside scones.png*
 
