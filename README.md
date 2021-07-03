@@ -104,7 +104,7 @@ Although a reverse shell is sweet, but you know what's sweeter? SSH! Jokes aside
 
 Navigating to /home/git/.ssh we can see that we have write permission for authorized keys.
 
-![write-perm-ssh.png](attachments/write-perm-ssh.pn)
+![write-perm-ssh.png](attachments/write-perm-ssh.png)
 
 Let's add our own key (or generate one if you haven't done it already) to authorized keys. Now we should be able to transfer files to the machine and also upgrade our own shell.
 
