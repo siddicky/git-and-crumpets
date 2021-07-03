@@ -143,8 +143,8 @@ sqlite> SELECT * FROM repository;
 ```
 
 As expected, we can see the user root does exist and has a backup repository. Now in order for us to be able to access it on gitea through our browser, we need to do two things:
-- Give us admin priveleges for gitea
-- Make the repository visible (just playing it safe)
+- Gives us admin priveleges for gitea
+- Makes the repository visible (just playing it safe)
 
 This can be done by running the following commands:
 ```sqlite3
