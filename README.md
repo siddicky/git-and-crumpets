@@ -115,7 +115,8 @@ scp  -i id_rsa /opt/scripts/privilege-escalation-awesome-scripts-suite/linPEAS/l
 ```
 
 Now let's run it and see if anything pops up. Low and behold (yeah apparently I say this now, great additon to my personality kekw), something indeed does. We find the sqlite database that's running on gitea, also there seems to be a backup repository for the root user too. Most likely it's the case that they might be hidden and only accessible through admin access on gitea. However, I don't like working on hunches so let's access the SQLite database and verify our hunch ;)
-Transfer over linpeas, interesting output
+
+Running linpeas, the following output is most definetly interesting, to say the least.
 
 ![linpeas-out.png](attachments/linpeas-out.png)
 
