@@ -1,6 +1,7 @@
 # Git and Grumpets - Tryhackme
 Link to the room: https://tryhackme.com/room/gitandcrumpets
-**Created by hydragyrum**
+*Created by hydragyrum*
+---
 # Emumeration
 ## Nmap
 ```
