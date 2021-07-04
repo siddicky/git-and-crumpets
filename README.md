@@ -59,7 +59,7 @@ I set up the dev repos at git.git-and-crumpets.thm, but I haven't gotten around 
 In the meantime, here's a fun video I found! 
 ```
 
-Now that we can have the name of a vhost, we can add it to our /etc/hosts. Navigating to `git.git-and-crumpets.thm` we are greeted with a gitea landing page (you can further research into it if you'd like). 
+Now that we can the name of a vhost, we can add it to our /etc/hosts. Navigating to `git.git-and-crumpets.thm` we are greeted with a gitea landing page (you can further research into it if you'd like). 
 
 ![gitea-landing-page.png](attachments/gitea-landing-page.png)
 
